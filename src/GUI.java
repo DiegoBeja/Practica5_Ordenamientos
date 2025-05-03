@@ -13,11 +13,19 @@ public class GUI extends JFrame{
     private JPanel panel1;
     private JPanel panel2;
     private JTextArea textoArchivo1;
+    private JTextArea textoArchivo2;
     private JScrollPane scroll;
+    private JScrollPane scroll2;
+    private JList<String> listaOpciones;
 
     public GUI() throws FileNotFoundException {
-        String[] opciones = new String[] {" ", "Opcion 1", "Opcion 2"};
-        String archivo = "C:\\Users\\bombo\\Desktop\\Algoritmos\\practica5_Algoritmos\\src\\weatherHistory.csv";
+        String[] opciones = new String[] {" ", "Quick Sort", "Merge Sort", "Shell Sort", "Seleccion Directa", "Radix Sort", "Sort", "Parallel Sort"};
+        listaOpciones = new JList<>(opciones);
+        listaOpciones.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane listaScroll = new JScrollPane(listaOpciones);
+        listaScroll.setPreferredSize(new Dimension(150, 120));
+
+        String archivo = "C:\\Users\\bombo\\Desktop\\Algoritmos\\Practica5_Ordenamientos\\src\\weatherHistory.csv";
 
         panel1 = new JPanel();
         panel2 = new JPanel();
@@ -26,19 +34,25 @@ public class GUI extends JFrame{
         boton2 = new JButton("Ver grafica");
 
         ordenamiento1 = new JComboBox<>(opciones);
+
         ordenamiento2 = new JComboBox<>(opciones);
 
         textoArchivo1 = new JTextArea(37, 10);
+        textoArchivo2 = new JTextArea(37, 10);
 
         scroll = new JScrollPane(textoArchivo1);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        scroll2 = new JScrollPane(textoArchivo2);
+        scroll2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         try(BufferedReader br = new BufferedReader(new FileReader(archivo))){
             String linea;
             while((linea = br.readLine()) != null){
                 String[] valores = linea.split(",");
-                textoArchivo1.append(valores[1] + "\n");
+                textoArchivo1.append(valores[0] + "\n");
+                textoArchivo2.append(valores[1] + "\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -50,18 +64,20 @@ public class GUI extends JFrame{
         setSize(1453, 723);
         setLocationRelativeTo(null);
 
-        //panel1.setBackground(Color.green);
         boton1.setFocusPainted(false);      //Le quita el cuadrado feo
         panel1.add(boton1);
         panel1.add(ordenamiento1);
         panel1.add(scroll);
+        panel1.add(listaScroll);
 
-        panel2.setBackground(Color.blue);
         boton2.setFocusPainted(false);
         panel2.add(boton2);
         panel2.add(ordenamiento2);
+        panel2.add(scroll2);
 
         add(panel1);
         add(panel2);
     }
+
+
 }

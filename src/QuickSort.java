@@ -1,5 +1,5 @@
 public class QuickSort{
-    private int[] a;
+    private final int[] a;
 
     public QuickSort(int[] a){
         this.a = a;

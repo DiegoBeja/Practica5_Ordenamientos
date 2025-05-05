@@ -1,5 +1,5 @@
-public class InsercionSeleccionDirecta{
-    public InsercionSeleccionDirecta(){
+public class Ordenamientos {
+    public Ordenamientos(){
 
     }
 
@@ -11,7 +11,7 @@ public class InsercionSeleccionDirecta{
             k = i-1;
             while(k >= 0 && aux < a[k]){
                 a[k+1] = a[k];
-                k = k -1;
+                k = k - 1;
             }
             a[k+1] = aux;
         }
@@ -37,6 +37,33 @@ public class InsercionSeleccionDirecta{
         }
         for(int i=0; i<n; i++){
             System.out.print(a[i] + " ");
+        }
+    }
+
+    public void shell(int[] a, int n){
+        int inter = n+1;
+        boolean band;
+        int i;
+        int aux;
+        while(inter > 0){
+            inter = inter/2;
+            band = true;
+            while(band){
+                band = false;
+                i = 0;
+                while((i + inter) < n){
+                    if(a[i] > a[i + inter]){
+                        aux = a[i];
+                        a[i] = a[i + inter];
+                        a[i + inter] = aux;
+                        band = true;
+                    }
+                    i++;
+                }
+            }
+        }
+        for(int j=0; j<n; j++){
+            System.out.print(a[j] + " ");
         }
     }
 }
